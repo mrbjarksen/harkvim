@@ -11,7 +11,6 @@ load:plugin('nvim-notify'):soon_after('UIEnter')
 load:plugin('dressing.nvim'):soon_after('UIEnter')
 
 -- Non-essential 
-load:plugin('eyeliner.nvim'):soon()
 load:plugin('telescope.nvim'):soon()
 load:plugin('neo-tree.nvim'):soon()
 

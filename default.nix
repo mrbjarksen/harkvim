@@ -76,7 +76,6 @@ let
       indent-blankline-nvim
       dressing-nvim
       nvim-notify
-      eyeliner-nvim
       vim-cool
       nvim-surround
       better-escape-nvim
