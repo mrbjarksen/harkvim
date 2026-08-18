@@ -24,13 +24,10 @@ return {
 
   -- Basic keymaps for convenience
   basic = function ()
-    -- Unmap ZZ and ZQ
+    -- Unmap ZZ, ZQ and ZR
     map('', 'ZZ', '')
     map('', 'ZQ', '')
-
-    -- Center line when searching
-    map('n', 'n', 'nzz')
-    map('n', 'N', 'Nzz')
+    map('', 'ZR', '')
 
     -- Switch functionality of ' and `
     map('', "'", "`")
