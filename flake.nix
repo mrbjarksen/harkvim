@@ -15,9 +15,6 @@
     overlays.harkvim = final: prev: {
       harkvim = prev.callPackage ./default.nix { };
     };
-    overlays.nvim = final: prev: {
-      nvim = prev.callPackage ./default.nix { };
-    };
 
     packages = forEachSystem
       nixpkgs.lib.platforms.unix
