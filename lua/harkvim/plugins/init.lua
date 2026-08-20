@@ -15,7 +15,7 @@ load:plugin('telescope.nvim'):soon()
 load:plugin('neo-tree.nvim'):soon()
 
 -- Buffer-specific
-load:plugin('indent-blanklines.nvim'):soon_after('BufRead')
+load:plugin('indent-blankline.nvim'):soon_after('BufRead')
 load:plugin('gitsigns.nvim'):soon_after('BufRead')
 load:plugin('nvim-treesitter'):soon_after('FileType')
 load:plugin('nvim-lspconfig'):soon_after('FileType')
