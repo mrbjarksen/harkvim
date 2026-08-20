@@ -22,6 +22,7 @@ load:plugin('nvim-lspconfig'):soon_after('FileType')
 load:plugin('fidget.nvim'):soon_after('LspAttach')
 
 -- Mode-specific
+load:plugin('better-escape.nvim'):soon_after('ModeChanged')
 load:plugin('nvim-autopairs'):soon_after('InsertEnter')
 load:plugin('nvim-surround'):soon_after('ModeChanged')
 load:plugin('vim-cool'):soon_after('CmdlineEnter')
