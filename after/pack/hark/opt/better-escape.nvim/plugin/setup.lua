@@ -1,4 +1,4 @@
-require'better-escape'.setup {
+require'better_escape'.setup {
   timeout = 30,
   default_mappings = false,
   mappings = {
