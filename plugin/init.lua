@@ -17,5 +17,6 @@ require 'harkvim.keymaps'.basic()
 require 'harkvim.qol'
 require 'harkvim.cursorline'
 require 'harkvim.folds'
-require 'harkvim.lsp'
 require 'harkvim.diagnostics'
+require 'harkvim.lsp'
+require 'harkvim.treesitter'
