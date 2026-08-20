@@ -62,7 +62,7 @@ let
 
     plugins = with vimPlugins; map opt [
       nvim-lspconfig
-      nvim-treesitter
+      nvim-treesitter.withAllGrammars
       fidget-nvim
       telescope-nvim
       telescope-fzf-native-nvim
