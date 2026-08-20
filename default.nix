@@ -19,27 +19,6 @@ let
     };
   };
 
-  neo-tree-diagnostics-nvim = vimUtils.buildVimPlugin {
-    pname = "neo-tree-diagnostics.nvim";
-    version = "0-unstable-2024-02-28";
-
-    src = fetchFromGitHub {
-      owner = "mrbjarksen";
-      repo = "neo-tree-diagnostics.nvim";
-      rev = "e00434c3cf8637bcaf70f65c2b9d82b0cc9bd7dc";
-      hash = "sha256-HU7pFsICHK6bg03chgZ1oP6Wx2GQxk7ZJHGQnD0IMBA=";
-    };
-
-    dependencies = [ vimPlugins.neo-tree-nvim ];
-    checkInputs = with vimPlugins; [ plenary-nvim nui-nvim ];
-
-    meta = {
-      homepage = "https://github.com/mrbjarksen/neo-tree-diagnostics.nvim";
-      license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ mrbjarksen ];
-    };
-  };
-
   opt = plugin: { inherit plugin; optional = true; };
 
   harkvim = wrapNeovimUnstable neovim-unwrapped {
