@@ -1,9 +1,13 @@
 vim.api.nvim_create_autocmd('FileType', {
   callback = function (a)
-    for _, config in ipairs(vim.lsp.get_configs { filetype = a.match }) do
-      vim.lsp.enable(config.name)
-    end
-  end
+    vim.schedule(function ()
+      for _, config in ipairs(vim.lsp.get_configs { enabled = false, filetype = a.match }) do
+        if type(config.cmd) ~= 'table' or vim.fn.executable(config.cmd[1]) == 1 then
+          vim.lsp.enable(config.name)
+        end
+      end
+    end)
+  end,
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
