@@ -1,4 +1,8 @@
+local group = vim.api.nvim_create_augroup('harkvim.lsp', { clear = true })
+local document_highlight_group = vim.api.nvim_create_augroup('harkvim.lsp.document_highlight', { clear = false })
+
 vim.api.nvim_create_autocmd('FileType', {
+  group = group,
   callback = function (a)
     vim.schedule(function ()
       for _, config in ipairs(vim.lsp.get_configs { enabled = false, filetype = a.match }) do
@@ -11,7 +15,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('harkvim.lsp.attach', { clear = true }),
+  group = group,
   callback = function (a)
     require'harkvim.keymaps'.lsp(a.buf)
 
@@ -26,11 +30,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     if client:supports_method('textDocument/codeLens') then
-      vim.lsp.codelens.enable(true, { client_id = client.id })
+      vim.lsp.codelens.enable(true, { bufnr = a.buf, client_id = client.id })
     end
 
     if client:supports_method('textDocument/semanticTokens') then
-      vim.lsp.semantic_tokens.enable(true, { client_id = client.id })
+      vim.lsp.semantic_tokens.enable(true, { bufnr = a.buf, client_id = client.id })
     end
 
     if client:supports_method('textDocument/foldingRange') then
@@ -38,7 +42,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     if client:supports_method('textDocument/documentHighlight') then
-      local document_highlight_group = vim.api.nvim_create_augroup('harkvim.lsp.document_highlight', { clear = false })
       vim.api.nvim_clear_autocmds { buffer = a.buf, group = document_highlight_group }
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
         group = document_highlight_group,
@@ -51,5 +54,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
         callback = vim.lsp.buf.clear_references
       })
     end
+  end
+})
+
+vim.api.nvim_create_autocmd('LspDetach', {
+  group = group,
+  callback = function (a)
+    local client = assert(vim.lsp.get_client_by_id(a.data.client_id))
+
+    vim.lsp.completion.enable(false, client.id, a.buf)
+    vim.lsp.codelens.enable(false, { bufnr = a.buf, client_id = client.id })
+    vim.lsp.semantic_tokens.enable(false, { bufnr = a.buf, client_id = client.id })
+
+    vim.schedule(function()
+      require'harkvim.folds'.configure(nil, a.buf)
+    end)
+
+    vim.api.nvim_clear_autocmds { buffer = a.buf, group = document_highlight_group }
   end
 })
